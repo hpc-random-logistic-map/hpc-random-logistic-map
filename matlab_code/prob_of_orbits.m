@@ -1,5 +1,6 @@
 % compute the probability of a P1, P2, etc. orbit
-
+%L , r is constant
+%tmp is a varialbe
 function prob_of_orbits(L, r, tmp)
 global xlen N tol
 
