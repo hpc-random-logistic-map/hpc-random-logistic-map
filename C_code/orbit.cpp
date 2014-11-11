@@ -1,5 +1,6 @@
 #include "orbit.h"
 #include <stdlib.h> // size_t
+#include "myrand.h"
 
 void prob_of_orbits(double L,double r,double tmp, size_t xlen,size_t N, double tol)
 {
@@ -22,7 +23,8 @@ void prob_of_orbits(double L,double r,double tmp, size_t xlen,size_t N, double t
 			y[i][j] = 0;
 	}
 	// myrand need to be check with others 
-	double** ab = myrand(L, N, r);// return a pointer to 2D matrix
+	double * a, b;
+	myrand(a,b,L, N, r);
 	
 	double orbits[maxp][maxp + 1];
 	for (int i = 0; i < maxp; i++)
