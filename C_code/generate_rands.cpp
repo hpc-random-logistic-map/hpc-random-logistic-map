@@ -5,7 +5,9 @@ input:
 - parameter: r
 output:
 - csv file with two columns for a and b
-- length of file depends on input (number of fourier modes)
+- first line of file is length of file (depends on input: L)
+- second line of file is column headings a,b
+- remaining lines are random numbers generated; their indices key to Fourier modes
 */
 #include <iostream> // cout
 #include <string>   //string
@@ -79,6 +81,7 @@ int main(int argc, char* argv[]){
     string colnames = "a,b\n";
 
     ofs.open(mfn.c_str(), ofstream::out | ofstream::app);
+    ofs << N << "\n";
     ofs << colnames;
 
     for( int i = 0; i < N; i++){
