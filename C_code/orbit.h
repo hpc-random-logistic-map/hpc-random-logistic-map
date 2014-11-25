@@ -1,6 +1,6 @@
 #ifndef ORBIT_h
 #define ORBIT_h
 
-void prob_of_orbits(double L, double r, double tmp, size_t xlen, size_t N, double tol);
+double* period_check(double x0, int iter, double tol, double* a, double* b, double *xv);
 
 #endif
