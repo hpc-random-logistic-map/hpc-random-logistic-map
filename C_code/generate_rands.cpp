@@ -46,13 +46,14 @@ double myrand(double *a, double *b, double L, int N, double r){
 }
 
 int main(int argc, char* argv[]){
-  int maxarg = 5;
+  int maxarg = 7;
   if(argc != maxarg){
-    cout << argc << "Incorrect inputs. Try something like:\n ./generate_rands.exe -L 0.1 -r 3.2";
+    cout << argc << " Incorrect inputs. Try something like:\n ./generate_rands.exe -L 0.1 -r 3.2 -f myrand.csv";
   }
   else{
     double L, r, x0;
     string c;
+    string mfn;
 
     for (int i = 1; i < maxarg; i+=2){
       c = argv[i];
@@ -61,6 +62,9 @@ int main(int argc, char* argv[]){
       }
       if(c == "-r"){
 	r = atof(argv[i+1]);    // sim param r in [0,4]
+      }
+      if(c == "-f"){
+	mfn = argv[i+1];
       }
     }
     	
@@ -77,7 +81,6 @@ int main(int argc, char* argv[]){
     int tmp;
     char mydata[500];   
     ofstream ofs;
-    string mfn = "myrand.csv";    
     string colnames = "a,b\n";
 
     ofs.open(mfn.c_str(), ofstream::out | ofstream::app);
