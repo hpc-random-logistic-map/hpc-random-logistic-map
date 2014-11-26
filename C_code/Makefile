@@ -1,20 +1,16 @@
 CXX = icpc
-OPT = -Ofast -vec-report -g -openmp
+OPT = -Ofast -vec-report -g
 
-INCLUDE =-I$(H5DIR)/include
-LIB_DIR =-L$(H5DIR)/lib
-LIBS =-lhdf5
+EXES = myfunc.exe
+R = generate_rands.exe
 
-EXES = matmul_omp.exe
-TMP = matrix_multiply.exe
+all: $(EXES) $(R)
 
-all: $(EXES) 
+myfunc.exe: myfunc.cpp
+	$(CXX) $(OPT) myfunc.cpp -o myfunc.exe
 
-matmul_omp.exe: matmul_omp.cpp
-	$(CXX) $(OPT) matmul_omp.cpp $(INCLUDE) $(LIB_DIR) $(LIBS) -o matmul_omp.exe
-
-matrix_multiply.exe: matrix_multiply.cpp
-	$(CXX) $(OPT) -o matrix_multiply.exe -g matrix_multiply.cpp
+generate_rands.exe: generate_rands.cpp
+	$(CXX) $(OPT) generate_rands.cpp -o generate_rands.exe
 
 clean:
-	rm -rf *.o *.exe *~ ans*
+	rm -rf *.o *.exe *~ 
