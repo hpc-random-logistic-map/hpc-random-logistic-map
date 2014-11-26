@@ -2,7 +2,8 @@
 code to generate random noise
 input: 
 - parameter: L, correlation length
-- parameter: r
+- parameter: r, in range(0,4)
+- parameter: f, file name
 output:
 - csv file with two columns for a and b
 - first line of file is length of file (depends on input: L)
