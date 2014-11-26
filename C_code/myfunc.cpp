@@ -140,7 +140,6 @@ int main(int argc, char* argv[]){
     int tmpN;
     getline(randfile, tmp);   // read the file size
     tmpN = atoi(tmp.c_str());
-    getline(randfile, tmp);   // move pointer past col headers
 
     // make sure the file size matches N
     if( tmpN != N ){
