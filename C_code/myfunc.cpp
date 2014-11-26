@@ -25,7 +25,7 @@ int period_check(int size, double* xv)
         flag = true;
         for (int i=size-1; i>size -1-p;i--)
         {
-            cout << xv[i] << " " << xv[i-p]<<endl;
+	  //            cout << xv[i] << " " << xv[i-p]<<endl;
             if(abs(xv[i] - xv[i-p])>tol)
             {
             //    cout << " correct " <<endl;
@@ -39,30 +39,6 @@ int period_check(int size, double* xv)
     }
     return 0;
     //actual data from 101 to size-1 of xv
-}
-
-/*Produce a random number in the range [a,b]*/
-double rand_draw(double a, double b) {
-  double random = ((float) rand()) / (float) RAND_MAX;
-  double diff = b - a;
-  double r = random * diff;
-  return a + r;
-}
-
-/*calculate random coefficients*/
-double myrand(double *a, double *b, double L, int N, double r){
-  int i;
-  double sigma = (log(4.0/r) * tanh(L/4.0) ) / ( sqrt(1.5*tanh(0.5*L)) );
-  double alpha = sigma*sigma*tanh(0.5*L);
-  double S;
-  float Mn;
-  for(i = 0; i < N; i++){
-    S = alpha * exp(-L * abs(i));
-    Mn = sqrt(1.5*S);
-    a[i] = rand_draw(-Mn,Mn);
-    b[i] = rand_draw(-Mn,Mn);
-  }     
-  return 0;
 }
 
 /*
@@ -107,18 +83,19 @@ void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
   // xold = xv;   // pointer to the previous iterate
   xv[0] = x0;
   for (int i = 0; i < iter-1; i++){
-      
+    //            cout<< xv[i]<<" ";
       if (i>101)   // possible optimization: simd vectorization remove index dependency
     {
+      
         period = period_check(i,xv);
         if (period>0)
         {
             //sort and printing
             cout <<"period found"<< endl;
             cout << r <<" "<< 10.0/double(N) <<" "<< period <<endl;
-            for (int k = size-1 ; k>size -1 -p; k--)
-                //sort_dataset(&xv[size-1-p]);
-                print *xv;
+            // for (int k = size-1 ; k>size -1 -p; k--)
+            //     //sort_dataset(&xv[size-1-p]);
+            //     print *xv;
             
             exit(0);
         }
