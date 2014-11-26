@@ -55,7 +55,7 @@ double R(double x, double **ab, double r, int N){
     
   //reduction on mysum?
   for(int j = 0; j < N; j++){
-    fs = 2 * ab[j][1] * cos(2*M_PI*j*x) - ab[j][2] * sin(2*M_PI*j*x);
+    fs = 2 * ab[j][0] * cos(2*M_PI*j*x) - ab[j][1] * sin(2*M_PI*j*x);
     mysum = mysum + fs;
   }
 
@@ -83,10 +83,10 @@ void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
   // xold = xv;   // pointer to the previous iterate
   xv[0] = x0;
   for (int i = 0; i < iter-1; i++){
-    //            cout<< xv[i]<<" ";
+      xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );        
+      //cout<< xv[i]<<" ";
       if (i>101)   // possible optimization: simd vectorization remove index dependency
-    {
-      
+      {
         period = period_check(i,xv);
         if (period>0)
         {
@@ -99,11 +99,8 @@ void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
             
             exit(0);
         }
-    }
-    xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );
-//    xv++;
-    //  *xv = R(*xold, ab, r, N) * *xold * ( 1 - *xold );
-    //xold = xv;
+       }
+    
   }
 }
 
@@ -165,9 +162,10 @@ int main(int argc, char* argv[]){
       for( int i = 0; i < N; i++){
 	for( int j = 0; j < 2; j++){
 	  randfile >> ab[i][j];
+      cout << ab[i][j] << " ";
 	}
       }
-
+    //exit(0);
       // initialize the xv result array with 100 elements
       cobweb(x0, iter, xv, ab, r, N);
 

@@ -84,7 +84,7 @@ int main(int argc, char* argv[]){
     ofstream ofs;
     string colnames = "a,b\n";
 
-    ofs.open(mfn.c_str(), ofstream::out | ofstream::app);
+    ofs.open(mfn.c_str(), ofstream::out | ofstream::trunc);
     ofs << N << "\n";
     ofs << colnames;
 
