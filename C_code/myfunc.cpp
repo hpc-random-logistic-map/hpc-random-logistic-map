@@ -11,6 +11,36 @@
 #include <limits> //long int for 10^9 runs
 using namespace std;
 
+/*
+Period checking
+ */
+int period_check(int size, double* xv)
+{
+    double tol = pow(10,-6);
+    int maxp = floor((size-100)/2);
+    bool flag;
+    //cout << maxp <<  " "<< size <<endl;
+    for (int p=1; p <=maxp; p++)
+    {
+        flag = true;
+        for (int i=size-1; i>size -1-p;i--)
+        {
+            cout << xv[i] << " " << xv[i-p]<<endl;
+            if(abs(xv[i] - xv[i-p])>tol)
+            {
+            //    cout << " correct " <<endl;
+            flag = false;
+            break;
+            }
+        }
+        if (flag == true)
+            return p;
+
+    }
+    return 0;
+    //actual data from 101 to size-1 of xv
+}
+
 /*Produce a random number in the range [a,b]*/
 double rand_draw(double a, double b) {
   double random = ((float) rand()) / (float) RAND_MAX;
@@ -71,14 +101,32 @@ double R(double x, double **ab, double r, int N){
   - N is the max number of Fourier modes
 */
 void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
-  double *xold;
-  *xv = x0;
-  xold = xv;   // pointer to the previous iterate
-
+//  double *xold;
+  int period = 0;
+//  *xv = x0;
+  // xold = xv;   // pointer to the previous iterate
+  xv[0] = x0;
   for (int i = 0; i < iter-1; i++){
-    xv++;
-    *xv = R(*xold, ab, r, N) * *xold * ( 1 - *xold );
-    xold = xv;
+      
+      if (i>101)   // possible optimization: simd vectorization remove index dependency
+    {
+        period = period_check(i,xv);
+        if (period>0)
+        {
+            //sort and printing
+            cout <<"period found"<< endl;
+            cout << r <<" "<< 10.0/double(N) <<" "<< period <<endl;
+            for (int k = size-1 ; k>size -1 -p; k--)
+                //sort_dataset(&xv[size-1-p]);
+                print *xv;
+            
+            exit(0);
+        }
+    }
+    xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );
+//    xv++;
+    //  *xv = R(*xold, ab, r, N) * *xold * ( 1 - *xold );
+    //xold = xv;
   }
 }
 
@@ -127,9 +175,7 @@ int main(int argc, char* argv[]){
     } else{   
       
       // set up pointer to result array
-      double xval[iter];
-      double *xv;
-      xv = xval;
+      double xv[iter];
 
       // initialize the pointers to random array
       double **ab;
@@ -146,12 +192,7 @@ int main(int argc, char* argv[]){
       }
 
       // initialize the xv result array with 100 elements
-      cobweb(x0, 100, xv, ab, r, N);
-
-      // call period check to examine
-
-      // continue iterating if period check is false
- 
+      cobweb(x0, iter, xv, ab, r, N);
 
       // delete pointers
       for(int i = 0; i < N; i++){
