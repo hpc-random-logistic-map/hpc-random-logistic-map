@@ -70,16 +70,20 @@ double R(double x, double **ab, double r, int N){
   - r is the simulation parameter
   - N is the max number of Fourier modes
 */
-void cobweb(double x0, int iter, double * xv, double **ab, double r, int N){
-  // begin fixed point iteration on the start position x0
-  xv[0] = x0;
+void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
+  double *xold;
+  *xv = x0;
+  xold = xv;   // pointer to the previous iterate
+
   for (int i = 0; i < iter-1; i++){
-    xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );
+    xv++;
+    *xv = R(*xold, ab, r, N) * *xold * ( 1 - *xold );
+    xold = xv;
   }
 }
 
 int main(int argc, char* argv[]){
-  int maxarg = 9;
+  int maxarg = 11;
   if(argc != maxarg){
     cout << argc << "Incorrect inputs. Try something like:\n ./myfunc.exe -L 0.1 -r 3.2 -x0 0.5 -iter 1000 -f myrand.csv";
   }
@@ -148,6 +152,14 @@ int main(int argc, char* argv[]){
 
       // continue iterating if period check is false
  
+
+      // delete pointers
+      for(int i = 0; i < N; i++){
+	delete [] ab[i];
+      }
+      delete [] ab;
+      delete [] xv;
+
       return 0;
     }
   }
