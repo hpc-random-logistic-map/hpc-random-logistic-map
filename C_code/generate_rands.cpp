@@ -2,8 +2,7 @@
 code to generate random noise
 input: 
 - parameter: L, correlation length
-- parameter: r, in range(0,4)
-- parameter: f, file name
+- parameter: r
 output:
 - csv file with two columns for a and b
 - first line of file is length of file (depends on input: L)
@@ -84,12 +83,11 @@ int main(int argc, char* argv[]){
     ofstream ofs;
     string colnames = "a,b\n";
 
-    ofs.open(mfn.c_str(), ofstream::out | ofstream::trunc);
+    ofs.open(mfn.c_str(), ofstream::out | ofstream::app);
     ofs << N << "\n";
-    ofs << colnames;
 
     for( int i = 0; i < N; i++){
-      tmp = sprintf(mydata, "%f,%f\n",a[i],b[i]);  //write data to buffer: mydata
+      tmp = sprintf(mydata, "%f %f\n",a[i],b[i]);  //write data to buffer: mydata
       ofs << mydata;    //write mydata to file mfn
     }
 
