@@ -1,10 +1,14 @@
 CXX = g++
-OPT = -Ofast #-vec-report -g
+OPT = -g
 
 EXES = myfunc.exe
 R = generate_rands.exe
+CMDL = generate_cmdlines.exe
 
-all: $(EXES) $(R)
+all: $(EXES) $(R) $(CMDL)
+
+generate_cmdlines.exe: generate_cmdlines.cpp
+	$(CXX) $(OPT) generate_cmdlines.cpp -o generate_cmdlines.exe
 
 myfunc.exe: myfunc.cpp
 	$(CXX) $(OPT) myfunc.cpp -o myfunc.exe
