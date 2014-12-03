@@ -79,30 +79,42 @@ double R(double x, double **ab, double r, int N){
 void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
 //  double *xold;
   int period = 0;
-//  *xv = x0;
-  // xold = xv;   // pointer to the previous iterate
+  double tmp;
+  // pointer to the previous iterate
   xv[0] = x0;
   for (int i = 0; i < iter-1; i++){
       xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );        
-      cout<< xv[i]<<" ";
-      if (i>101)   // possible optimization: simd vectorization remove index dependency
-      {
-        period = period_check(i,xv);
-        if (period>0)
+  	if (i>101)   // possible optimization: simd vectorization remove index dependency
         {
-            //sort and printing
-            cout <<"period found"<< endl;
-            cout << r <<" "<< 10.0/double(N) <<" "<< period <<endl;
-            // for (int k = size-1 ; k>size -1 -p; k--)
-            //     //sort_dataset(&xv[size-1-p]);
-            //     print *xv;
-            
-            exit(0);
-        }
-       }
+        	period = period_check(i+1,xv);
+       		if (period>0)
+        	{
+            		//sort and printing
+            		cout <<"period found"<< endl;
+            		cout << r <<" "<< 10.0/double(N) <<" "<< period <<endl;
+            		for(int k = i-period+2; k<i; i++){
+				for(int k1 = k-1; k1 > i-period; k1--){
+	            			if(xv[k1] < xv[k]){
+						tmp = xv[k];
+						xv[k] = xv[k1];
+						xv[k1] =tmp;
+						break;
+					}
+	    			}
+ 	    		}
+			tmp = i;
+			cout << "period is: " << period << " i is: " << tmp << "starting point: " << tmp-period << endl;
+			for(int k= i-period+1; k<=i; k++){
+				cout << "j is " << k << endl;
+				cout << xv[k] << endl;
+			}
+            		exit(0);
+        	  }
+       	}
     
-  }
+   }
 }
+
 
 int main(int argc, char* argv[]){
   int maxarg = 11;
