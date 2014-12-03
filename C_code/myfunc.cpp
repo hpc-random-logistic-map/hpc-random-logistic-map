@@ -84,7 +84,7 @@ void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
   xv[0] = x0;
   for (int i = 0; i < iter-1; i++){
       xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );        
-      //cout<< xv[i]<<" ";
+      cout<< xv[i]<<" ";
       if (i>101)   // possible optimization: simd vectorization remove index dependency
       {
         period = period_check(i,xv);
@@ -161,7 +161,6 @@ int main(int argc, char* argv[]){
       for( int i = 0; i < N; i++){
 	for( int j = 0; j < 2; j++){
 	  randfile >> ab[i][j];
-      cout << ab[i][j] << " ";
 	}
       }
     //exit(0);
@@ -173,9 +172,7 @@ int main(int argc, char* argv[]){
 	delete [] ab[i];
       }
       delete [] ab;
-      delete [] xv;
-
-      return 0;
+       return 0;
     }
   }
 }
