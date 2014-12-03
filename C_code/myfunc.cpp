@@ -76,40 +76,43 @@ double R(double x, double **ab, double r, int N){
   - r is the simulation parameter
   - N is the max number of Fourier modes
 */
-void cobweb(double x0, int iter, double *xv, double **ab, double r, int N){
+void cobweb(double L,double x0, int iter, double *xv, double **ab, double r, int N){
 //  double *xold;
-  int period = 0;
+  
   double tmp;
   // pointer to the previous iterate
   xv[0] = x0;
+  int period;
   for (int i = 0; i < iter-1; i++){
       xv[i+1] = R(xv[i], ab, r, N) * xv[i] * ( 1 - xv[i] );        
-  	if (i>101)   // possible optimization: simd vectorization remove index dependency
+
+    if (i>101)   // possible optimization: simd vectorization remove index dependency
         {
-        	period = period_check(i+1,xv);
+            period = period_check(i+1,xv);
        		if (period>0)
         	{
             		//sort and printing
-            		cout <<"period found"<< endl;
-            		cout << r <<" "<< 10.0/double(N) <<" "<< period <<endl;
-            		for(int k = i-period+2; k<i; i++){
-				for(int k1 = k-1; k1 > i-period; k1--){
-	            			if(xv[k1] < xv[k]){
-						tmp = xv[k];
-						xv[k] = xv[k1];
-						xv[k1] =tmp;
-						break;
-					}
-	    			}
- 	    		}
-			tmp = i;
-			cout << "period is: " << period << " i is: " << tmp << "starting point: " << tmp-period << endl;
+            		cout << r <<","<< L <<","<< period << ",";
+            		for(int k = i-period+2; k<=i; k++){
+				        for(int k1 = k-1; k1 > i-period; k1--)
+	            			if(xv[k] < xv[k1]){
+						        tmp = xv[k];
+						        xv[k] = xv[k1];
+						        xv[k1] =tmp;
+					        }
+                    //cout << xv[k] << " " << endl;
+	    			
+ 	    		    }
+                //cout << endl;
+			//cout << "period is: " << period << " i is: " << tmp << "starting point: " << tmp-period << endl;
+            
 			for(int k= i-period+1; k<=i; k++){
-				cout << "j is " << k << endl;
-				cout << xv[k] << endl;
+				//cout << "j is " << k << endl;
+				cout << xv[k] << ",";
 			}
-            		exit(0);
-        	  }
+            cout << endl;
+            exit(0);
+        	 }
        	}
     
    }
@@ -177,7 +180,7 @@ int main(int argc, char* argv[]){
       }
     //exit(0);
       // initialize the xv result array with 100 elements
-      cobweb(x0, iter, xv, ab, r, N);
+      cobweb(L,x0, iter, xv, ab, r, N);
 
       // delete pointers
       for(int i = 0; i < N; i++){
