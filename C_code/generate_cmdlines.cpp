@@ -1,11 +1,17 @@
 /*
-  code to generate command line input to the load balancer
-  input:
+  code to generate command line input for the scaling study
   input: 
   - parameter: L, correlation length
-  - parameter: r
+  - parameter: dr, spacing between r values on [0,4]
+  - parameter: dx, spacing between initial x0 values on [0,1]
+  - parameter: iter, max number of iterates in fixed point iteration (cobweb)
+  - -f filename result file that the procs report to
   output:
-  - file containing a list of commands for the load balancer
+  - M driver_i.sh files, where i = 0...M-1 and M = (4-2dr)/dr
+  - M cmdline_i files, where the number of commands is N = (1-2dx)/dx
+  - 1 submitjob.sh file, where there are M lines, and each corresponds with driver_i.sh file
+  REMARK:
+  be sure to chmod 777 submitjob.sh for slurm.
 */
 #include <iostream> // cout
 #include <string>   //string
@@ -27,7 +33,7 @@ int main(int argc, char* argv[]){
   else{
     double L, r, x, dr, dx;
     int tmp, numx, numr, iter, nc, nm, nd;
-    char mydata[100], mybuf[300];   
+    char mydata[1000], mybuf[1000];   
     ofstream ofs, ofsdriver;
     char cmdlines[50], myrand[50], driver[50];
     string sjob, resfile;
