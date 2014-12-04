@@ -1,5 +1,5 @@
-CXX = g++
-OPT = -g
+CXX = icpc
+OPT = -Ofast -vec-report -g
 
 EXES = myfunc.exe
 R = generate_rands.exe
