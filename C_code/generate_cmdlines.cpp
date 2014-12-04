@@ -11,7 +11,13 @@
   - M cmdline_i files, where the number of commands is N = (1-2dx)/dx
   - 1 submitjob.sh file, where there are M lines, and each corresponds with driver_i.sh file
   REMARK:
-  be sure to chmod 777 submitjob.sh for slurm.
+  - be sure to chmod 777 submitjob.sh for slurm.
+  INSTRUCTIONS:
+  1. do a make clean to remove all the other .sh, .out, and cmdlines files
+  2. load all module files (load balancer, slurm, icpc, etc.) and make
+  3. run something like ./generate_cmdlines.exe -L 0.1 -dr 0.1 -dx 0.1 -iter 1000 -f result.csv
+  4. chmod 777 submitjob.sh
+  5. on an interactive session, run ./submitjob.sh
 */
 #include <iostream> // cout
 #include <string>   //string
