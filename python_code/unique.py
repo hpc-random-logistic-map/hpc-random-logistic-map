@@ -37,6 +37,7 @@ for row in data:
 for i in count:
     i = i/len(data)
 #count = count /len(data)
-#x = [i for i in range(451)]
-plt.hist(count,10)
+x = [i for i in range(451)]
+
+plt.hist(count,bins =x)
 plt.savefig("test.png")
