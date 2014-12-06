@@ -38,5 +38,5 @@ for row in data:
  #   i = i/len(data)
 count = count /len(data)
 
-plt.bar(range(0,451),count)
+plt.bar(range(0,4151),count, width =1)
 plt.savefig("test.png")
