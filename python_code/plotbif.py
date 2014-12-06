@@ -5,6 +5,8 @@
 import sys
 import h5py
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 h5f = h5py.File(sys.argv[1], "r")
@@ -44,6 +46,6 @@ for coords in x:
 plt.axis([lo_x, hi_x, lo_y, hi_y])
 plt.xlabel("r")
 plt.ylabel("x value")
-plt.show()
+plt.savefig("Bifurcation_of_L="+sys.argv[2]+".png")
 
 h5f.close()
