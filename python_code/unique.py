@@ -31,11 +31,12 @@ csvf.close()
 
 count = [0 for x in range(451)]
 #pdb.set_trace()
-print count
 for row in data:
     count[int(row[2])] += 1
 
-print len(data)
+for i in count:
+    i = i/len(data)
+#count = count /len(data)
 x = [i for i in range(451)]
-plt.hist(count,x)
+plt.hist(count,451)
 plt.savefig("test.png")
