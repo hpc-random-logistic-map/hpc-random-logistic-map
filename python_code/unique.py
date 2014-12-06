@@ -36,8 +36,8 @@ for row in data:
 
 #for i in count:
  #   i = i/len(data)
-#count = count /len(data)
+count = count /len(data)
 x = [i for i in range(451)]
 
-plt.hist(count)
+plt.bar(x,count)
 plt.savefig("test.png")
