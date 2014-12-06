@@ -100,15 +100,14 @@ void cobweb(double L,double x0, int iter, double *xv, double **ab, double r, int
 						        xv[k] = xv[k1];
 						        xv[k1] =tmp;
 					        }
-                    //cout << xv[k] << " " << endl;
 	    			
  	    		    }
-                //cout << endl;
-			//cout << "period is: " << period << " i is: " << tmp << "starting point: " << tmp-period << endl;
             
 			for(int k= i-period+1; k<=i; k++){
-				//cout << "j is " << k << endl;
+				if(k< i){
 				cout << xv[k] << ",";
+				}
+			else cout << xv[k] << endl;
 			}
             cout << endl;
             exit(0);
