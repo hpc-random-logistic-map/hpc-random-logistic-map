@@ -29,7 +29,7 @@ for index,row in enumerate(csvreader):
 csvf.close()
 
 
-count = [0 for x in range(451)]
+count = np.zeros(451)
 #pdb.set_trace()
 for row in data:
     count[int(row[2])] += 1
@@ -39,5 +39,5 @@ for row in data:
 #count = count /len(data)
 x = [i for i in range(451)]
 
-plt.hist(count,10)
+plt.hist(count)
 plt.savefig("test.png")
