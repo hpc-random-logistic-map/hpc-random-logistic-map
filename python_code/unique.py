@@ -4,8 +4,10 @@
 import csv
 import sys
 #import h5py
-#import numpy as np
-#import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import pdb
 csvf = open(sys.argv[1], 'r')
 
@@ -25,4 +27,15 @@ for index,row in enumerate(csvreader):
         if (flag == False):
 		data.append(row)                         
 csvf.close()
-print data
+
+
+count = [0 for x in range(451)]
+#pdb.set_trace()
+print count
+for row in data:
+    count[int(row[2])] += 1
+
+print len(data)
+x = [i for i in range(451)]
+plt.hist(count,x)
+plt.savefig("test.png")

@@ -6,7 +6,7 @@ import sys
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pdb
 csvf = open(sys.argv[1], 'r')
 csvreader = csv.reader(csvf)
 # row format:
@@ -38,7 +38,11 @@ for index,row in enumerate(csvreader):
         if (flag == False):
 		data.append(row)                         
 csvf.close()
-
+pdb.set_trace()
+count = [0 for x in range(450)]
+for row in data:
+    print row
+    count[int(row[3])] += 1
 for row in data:
 
     rv = row[0]
