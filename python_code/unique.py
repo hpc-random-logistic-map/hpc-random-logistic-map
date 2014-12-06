@@ -38,6 +38,7 @@ for row in data:
  #   i = i/len(data)
 count = count /len(data)
 
+
 plt.bar(range(0,451),count)
 plt.xlim([0,451])
 plt.ylim([0,1])

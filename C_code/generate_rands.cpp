@@ -32,7 +32,7 @@ double rand_draw(double a, double b) {
 /*calculate random coefficients*/
 double myrand(double *a, double *b, double L, int N, double r){
   int i;
-  double sigma = (log(4.0/r) * tanh(L/4.0) ) / ( sqrt(1.5*tanh(0.5*L)) );
+  double sigma = (log(4.0/r) * tanh(L*0.25) ) / ( sqrt(1.5*tanh(0.5*L)) );
   double alpha = sigma*sigma*tanh(0.5*L);
   double S;
   float Mn;
@@ -75,7 +75,7 @@ int main(int argc, char* argv[]){
     ap = a;
     bp = b;
     srand (time(NULL));   // set the random seed to current time	
-    myrand(ap,bp,L,N,r);  //populate the arrays with random numbers
+    myrand(a,b,L,N,r);  //populate the arrays with random numbers
 
     // write random arrays to csv file
     int tmp;
