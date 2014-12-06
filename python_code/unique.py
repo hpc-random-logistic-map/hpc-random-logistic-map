@@ -34,10 +34,10 @@ count = [0 for x in range(451)]
 for row in data:
     count[int(row[2])] += 1
 
-for i in count:
-    i = i/len(data)
+#for i in count:
+ #   i = i/len(data)
 #count = count /len(data)
 x = [i for i in range(451)]
 
-plt.hist(count,bins =x)
+plt.hist(count,10)
 plt.savefig("test.png")
