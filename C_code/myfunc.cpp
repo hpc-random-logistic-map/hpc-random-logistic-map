@@ -19,16 +19,13 @@ int period_check(int size, double* xv)
     double tol = pow(10,-6);
     int maxp = floor((size-100)/2);
     bool flag;
-    //cout << maxp <<  " "<< size <<endl;
     for (int p=1; p <=maxp; p++)
     {
         flag = true;
         for (int i=size-1; i>size -1-p;i--)
-        {
-	  //            cout << xv[i] << " " << xv[i-p]<<endl;
+	{     
             if(abs(xv[i] - xv[i-p])>tol)
             {
-            //    cout << " correct " <<endl;
             flag = false;
             break;
             }
@@ -109,7 +106,6 @@ void cobweb(double L,double x0, int iter, double *xv, double **ab, double r, int
 				}
 			else cout << xv[k] << endl;
 			}
-            cout << endl;
             exit(0);
         	 }
        	}
