@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 csvf = open(sys.argv[1], 'r')
-
+csvreader = csv.reader(csvf)
 # row format:
 # r, L, period, x_0, x_1, ..., x_period-1
 
@@ -23,10 +23,23 @@ bif = h5f.get("bifurcation_data")
 if bif is None:
     bif = h5f.create_group("bifurcation_data")
 
-csvreader = csv.reader(csvf)
-csvreader.next() # skip first row
+data =[]
+#csvreader.next() # skip first row
+#pdb.set_trace()
+for index,row in enumerate(csvreader):
+    #print index
+	flag = False
+	if(index != 0):
+		for i in data:
+		#	print i
+			if(row == i):
+				flag = True
+				break
+        if (flag == False):
+		data.append(row)                         
+csvf.close()
 
-for row in csvreader:
+for row in data:
 
     rv = row[0]
     Lv = row[1]
