@@ -33,15 +33,19 @@ count = np.zeros(451)
 #pdb.set_trace()
 for row in data:
     count[int(row[2])] += 1
-
+#print count
 #for i in count:
  #   i = i/len(data)
 count = count /len(data)
 
-
+#print len(data)
+#plt.xrange(0,451)
 plt.bar(range(0,451),count)
-plt.xlim([0,10])
+plt.xlim([0,450])
 plt.ylim([0,1])
+plt.xlabel("Period Order")
+plt.ylabel("frequency of P_orbit")
+
 plt.savefig("test.png")
 
 
