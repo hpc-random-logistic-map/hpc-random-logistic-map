@@ -33,16 +33,15 @@ count = np.zeros(451)
 #pdb.set_trace()
 for row in data:
     count[int(row[2])] += 1
-#print count
+print count
 #for i in count:
  #   i = i/len(data)
 count = count /len(data)
 print maxp
-#print len(data)
-#plt.xrange(0,451)
+
 plt.bar(range(0,451),count,width=1)
-plt.xlim([0,maxp])
-#plt.ylim([0,1])
+#plt.xlim([0,maxp])
+plt.xticks(np.arange(1, maxp, 1))
 plt.yticks(np.arange(0, 1, .1))
 plt.xlabel("Period Order")
 plt.ylabel("frequency of P_orbit")
