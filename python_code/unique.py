@@ -43,6 +43,7 @@ print maxp
 plt.bar(range(0,451),count,width=1)
 plt.xlim([0,maxp])
 plt.ylim([0,1])
+plt.yticks(np.arange(0, 1, .1))
 plt.xlabel("Period Order")
 plt.ylabel("frequency of P_orbit")
 
