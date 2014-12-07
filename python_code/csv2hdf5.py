@@ -27,22 +27,26 @@ data =[]
 #csvreader.next() # skip first row
 #pdb.set_trace()
 for index,row in enumerate(csvreader):
-    #print index
-	flag = False
-	if(index != 0):
-		for i in data:
-		#	print i
-			if(row == i):
-				flag = True
-				break
+    print "processing row "+str(index)+":"
+    print row
+    flag = False
+    if(index != 0):
+        for i in data:
+        #   print i
+            if(row == i):
+                flag = True
+                break
         if (flag == False):
-		data.append(row)                         
+            data.append(row)
 csvf.close()
-pdb.set_trace()
+#pdb.set_trace()
 count = [0 for x in range(450)]
 for row in data:
     print row
-    count[int(row[3])] += 1
+    if "e-" not in row[3]:
+        count[int(float(row[3]))] += 1
+    else:
+        count[0] += 1
 for row in data:
 
     rv = row[0]
@@ -81,7 +85,11 @@ for row in data:
     i = x.len()+1
     x.resize((i,period))
     for j in range(0, period):
-        x[i-1,j] = float(xv[j])
+        # sloppy hack to deal with really tiny numbers in the output
+        if "e-" not in xv[j]:
+            x[i-1,j] = float(xv[j])
+        else:
+            x[i-1,j] = 0.0
         #print str(x[j-1,i])
 
     # END ARCHIVE
@@ -95,13 +103,13 @@ for row in data:
 
     x = L.get("x")
     if x is None:
-        dt = np.dtype([("r","float"),("x_loc","float")])
+        dt = np.dtype([("r","float"),("x_loc","float"),("p","int")])
         x = L.create_dataset("x", (0,), dtype=dt, maxshape=(None,))
     oldlen = x.len()
     newlen = oldlen + period
     x.resize(int(newlen), axis=0)
     for i in range(0, period):
-        x[oldlen+i] = (float(rv),float(xv[i]))
+        x[oldlen+i] = (float(rv),float(xv[i]),period)
         #print str(x[oldlen+i])
 
     # END BIFURCATION DATA

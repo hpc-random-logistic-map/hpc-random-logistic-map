@@ -26,26 +26,49 @@ if x is None:
     print "couldn't find x."
     sys.exit()
 
-print x
+#print x
 
 lo_x = hi_x = x[0][0]
 lo_y = hi_y = x[0][1]
 
 for coords in x:
-    plt.plot(coords[0], coords[1], "ro")
-    if lo_x > coords[0]:
-        lo_x = coords[0]
-    elif hi_x < coords[0]:
-        hi_x = coords[0]
-    if lo_y > coords[1]:
-        lo_y = coords[1]
-    elif hi_y < coords[1]:
-        hi_y = coords[1]
-    print coords
+    if coords[2] == 1:
+        plt.plot(coords[0], coords[1], "wo")
+    elif coords[2] == 2:
+        plt.plot(coords[0], coords[1], "go")
+    elif coords[2] == 3:
+        plt.plot(coords[0], coords[1], "mo")
+    elif coords[2] == 4:
+        plt.plot(coords[0], coords[1], "ro")
+    elif coords[2] == 5:
+        plt.plot(coords[0], coords[1], "yo")
+    elif coords[2] == 6:
+        plt.plot(coords[0], coords[1], color="purple", marker="o")
+    elif coords[2] == 7:
+        plt.plot(coords[0], coords[1], color="limegreen", marker="o")
+    elif coords[2] == 8:
+        plt.plot(coords[0], coords[1], color="blue", marker="o")
+    elif coords[2] == 9:
+        plt.plot(coords[0], coords[1], color="orange", marker="o")
+    elif coords[2] == 10:
+        plt.plot(coords[0], coords[1], color="gray", marker="o")
+    elif coords[2] == 11:
+        plt.plot(coords[0], coords[1], color="cyan", marker="o")
+    elif coords[2] == 12:
+        plt.plot(coords[0], coords[1], color="mint", marker="o")
+    elif coords[2] == 24:
+        plt.plot(coords[0], coords[1], color="brown", marker="o")
+    else:
+        plt.plot(coords[0], coords[1], "ko")
 
-plt.axis([lo_x, hi_x, lo_y, hi_y])
+    if hi_y < coords[1]:
+        hi_y = coords[1]
+
+plt.title("Bifurcation of L = "+sys.argv[2])
+plt.axis([0, 4, 0, hi_y])
 plt.xlabel("r")
 plt.ylabel("x value")
 plt.savefig("Bifurcation_of_L="+sys.argv[2]+".png")
+plt.show()
 
 h5f.close()
