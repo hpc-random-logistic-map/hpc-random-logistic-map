@@ -13,8 +13,9 @@ csvf = open(sys.argv[1], 'r')
 
 csvreader = csv.reader(csvf)
 data =[]
+maxp = 0
 #csvreader.next() # skip first row
-#pdb.set_trace()
+#pdb.iset_trace()
 for index,row in enumerate(csvreader):
     flag = False
     for i in data:
@@ -23,7 +24,8 @@ for index,row in enumerate(csvreader):
             break
     if (flag == False):
         data.append(row)  
-    print row
+    if (int(row[2])>maxp):
+        maxp = int(row[2])
 csvf.close()
 
 #print data
@@ -35,14 +37,15 @@ for row in data:
 #for i in count:
  #   i = i/len(data)
 count = count /len(data)
-
+print maxp
 #print len(data)
 #plt.xrange(0,451)
 plt.bar(range(0,451),count,width=1)
-plt.xlim([0,450])
+plt.xlim([0,maxp])
 plt.ylim([0,1])
 plt.xlabel("Period Order")
 plt.ylabel("frequency of P_orbit")
+
 plt.savefig("test.png")
 
 
