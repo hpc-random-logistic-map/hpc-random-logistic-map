@@ -45,7 +45,7 @@ plt.xlim([0,450])
 plt.ylim([0,1])
 plt.xlabel("Period Order")
 plt.ylabel("frequency of P_orbit")
-
+plt.set_xscale('log')
 plt.savefig("test.png")
 
 
