@@ -16,16 +16,14 @@ data =[]
 #csvreader.next() # skip first row
 #pdb.set_trace()
 for index,row in enumerate(csvreader):
-    #print index
-	flag = False
-	if(index != 0):
-		for i in data:
-		#	print i
-			if(row == i):
-				flag = True
-				break
-        if (flag == False):
-            data.append(row)                         
+    flag = False
+    for i in data:
+        if(row == i):
+            flag = True
+            break
+    if (flag == False):
+        data.append(row)  
+    print row
 csvf.close()
 
 #print data
@@ -40,12 +38,11 @@ count = count /len(data)
 
 #print len(data)
 #plt.xrange(0,451)
-plt.bar(range(0,451),count)
+plt.bar(range(0,451),count,width=1)
 plt.xlim([0,450])
 plt.ylim([0,1])
 plt.xlabel("Period Order")
 plt.ylabel("frequency of P_orbit")
-plt.set_xscale('log')
 plt.savefig("test.png")
 
 
