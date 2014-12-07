@@ -25,10 +25,10 @@ for index,row in enumerate(csvreader):
 				flag = True
 				break
         if (flag == False):
-		data.append(row)                         
+            data.append(row)                         
 csvf.close()
 
-
+#print data
 count = np.zeros(451)
 #pdb.set_trace()
 for row in data:
@@ -40,7 +40,7 @@ count = count /len(data)
 
 
 plt.bar(range(0,451),count)
-plt.xlim([0,451])
+plt.xlim([0,10])
 plt.ylim([0,1])
 plt.savefig("test.png")
 
