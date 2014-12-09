@@ -27,8 +27,10 @@ data =[]
 #csvreader.next() # skip first row
 #pdb.set_trace()
 for index,row in enumerate(csvreader):
-    print "processing row "+str(index)+":"
-    print row
+    #~ print "processing row "+str(index)+":"
+    #~ print row
+    if row == []:
+        continue
     flag = False
     if(index != 0):
         for i in data:
@@ -43,10 +45,11 @@ csvf.close()
 count = [0 for x in range(450)]
 for row in data:
     print row
-    if "e-" not in row[3]:
-        count[int(float(row[3]))] += 1
-    else:
-        count[0] += 1
+    if row[0] != "" and row[1] != "" and row[2] != "" and row[3] != "":
+        if row[2] != "0" and "e-" not in row[3]:
+            count[int(float(row[3]))] += 1
+        else:
+            count[0] += 1
 for row in data:
 
     rv = row[0]
