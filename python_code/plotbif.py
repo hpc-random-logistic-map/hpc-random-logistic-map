@@ -28,9 +28,6 @@ if x is None:
 
 #print x
 
-lo_x = hi_x = x[0][0]
-lo_y = hi_y = x[0][1]
-
 for coords in x:
     if coords[2] == 1:
         plt.plot(coords[0], coords[1], "wo")
@@ -55,17 +52,15 @@ for coords in x:
     elif coords[2] == 11:
         plt.plot(coords[0], coords[1], color="cyan", marker="o")
     elif coords[2] == 12:
-        plt.plot(coords[0], coords[1], color="mint", marker="o")
+        plt.plot(coords[0], coords[1], color="chartreuse", marker="o")
     elif coords[2] == 24:
         plt.plot(coords[0], coords[1], color="brown", marker="o")
     else:
         plt.plot(coords[0], coords[1], "ko")
 
-    if hi_y < coords[1]:
-        hi_y = coords[1]
 
 plt.title("Bifurcation of L = "+sys.argv[2])
-plt.axis([0, 4, 0, hi_y])
+plt.axis([0, 4, 0, 1])
 plt.xlabel("r")
 plt.ylabel("x value")
 plt.savefig("Bifurcation_of_L="+sys.argv[2]+".png")
